@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Words Wid History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5faff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e90ff;
+        }
+
+        .search-box {
+            max-width: 400px;
+            margin: 20px auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #1e90ff;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0b6fcc;
+        }
+
+        .result {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .word {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1e90ff;
+        }
+
+        .translation {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .pronunciation {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #555;
+            font-style: italic;
+        }
+
+        .notfound {
+            text-align: center;
+            padding: 20px;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Words Wid History</h1>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Busca una palabra en Kriol...">
+        <button onclick="searchWord()">Buscar</button>
+    </div>
+
+    <div id="result" class="result"></div>
+
+    <script>
+        // 🟦 Diccionario con Kriol → Español → Pronunciación
+        const dictionary = {
+            "weh yu deh": {
+                spanish: "¿Dónde estás?",
+                pronunciation: "wé yu dé"
+            },
+            
+            "mek": {
+                spanish: "Hacer",
+                pronunciation: "mék"
+            },
+            "wah": {
+                spanish: "Querer / Desear",
+                pronunciation: "waah"
+            },
+            "piknini": {
+                spanish: "Niño / Niña",
+                pronunciation: "pík-nini"
+            }
+        };
+
+        function searchWord() {
+            const input = document.getElementById("searchInput").value.toLowerCase().trim();
+            const resultDiv = document.getElementById("result");
+
+            if (input === "") {
+                resultDiv.style.display = "block";
+                resultDiv.innerHTML = "<div class='notfound'>⛔ Escribe una palabra para buscar.</div>";
+                return;
+            }
+
+            const wordData = dictionary[input];
+
+            if (wordData) {
+                resultDiv.style.display = "block";
+                resultDiv.innerHTML = `
+                    <div class="word">${input}</div>
+                    <div class="translation"><strong>Español:</strong> ${wordData.spanish}</div>
+                    <div class="pronunciation"><strong>Pronunciación:</strong> ${wordData.pronunciation}</div>
+                `;
+            } else {
+                resultDiv.style.display = "block";
+                resultDiv.innerHTML = "<div class='notfound'>⚠️ Esa palabra no está registrada todavía.</div>";
+            }
+        }
+    </script>
+
+</body>
+</html>
